@@ -14,7 +14,7 @@
   when: fish_set_default
 
 - name: Install Fisher
-  command: curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+  command: fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
   become_user: "{{ fish_user }}"
   when: fisher_install
 
