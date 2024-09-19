@@ -33,7 +33,6 @@
 
 - name: Install Starship
   command: curl -fsSL https://starship.rs/install.sh | sh
-  become_user: "{{ fish_user }}"
   when: starship_install
 
 - name: Clone Starship Config Repo
