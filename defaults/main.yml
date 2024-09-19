@@ -9,9 +9,12 @@ fisher_plugins:
   - jorgebucaran/fish-ssh-agent # SSH Agent
   - jethrokuan/z                # for directory tracking?
   - dideler/fish-cd-git         # cd to git root
-fisher_config_repo: https://github.com/localh0rst/fish-config.git
-fisher_config_path: /home/{{ fish_user }}/.config/fish
-fisher_force_config: true
+
+fisher_additional_packages: 
+  - fzf
+fish_config_repo: https://github.com/localh0rst/fish-config.git
+fish_config_path: /home/{{ fish_user }}/.config/fish
+fish_force_config: true
 
 starship_install: true
 starship_config_repo: https://github.com/localh0rst/fish-starship-config.git

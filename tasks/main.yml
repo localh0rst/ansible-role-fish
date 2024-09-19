@@ -26,20 +26,20 @@
 
 - name: Delete FISH Config if Repo is set
   file: 
-    path: "{{ fisher_config_path }}"
+    path: "{{ fish_config_path }}"
     state: absent
   become_user: "{{ fish_user }}"
   when: 
-    - fisher_force_config
-    - fisher_config_repo
+    - fish_force_config
+    - fish_config_repo
 
 - name: Clone FISH Config Repo
   git:
-    repo: "{{ fisher_config_repo }}"
-    dest: "{{ fisher_config_path }}"
+    repo: "{{ fish_config_repo }}"
+    dest: "{{ fish_config_path }}"
     force: yes
   become_user: "{{ fish_user }}"
-  when: fisher_config_repo
+  when: fish_config_repo
 
 - name: Download Starship Installer
   ansible.builtin.get_url:
