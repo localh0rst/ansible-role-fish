@@ -1,7 +1,9 @@
 ---
 - name: Install FISH Shell
   apt:
-    name: fish
+    name: 
+      - fish
+      - curl
     state: present
     update_cache: yes
 
