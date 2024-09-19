@@ -31,8 +31,15 @@
   become_user: "{{ fish_user }}"
   when: fisher_config_repo
 
+- name: Download Starship Installer
+  ansible.builtin.get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship_install.sh
+    mode: '0700'
+  when: starship_install
+
 - name: Install Starship
-  command: sh <(curl -fsSL https://starship.rs/install.sh) -y
+  command: /tmp/starship_install.sh -y
   when: starship_install
 
 - name: Clone Starship Config Repo
