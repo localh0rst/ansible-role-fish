@@ -32,7 +32,7 @@
   when: fisher_config_repo
 
 - name: Install Starship
-  command: curl -fsSL https://starship.rs/install.sh | sh
+  command: sh <(curl -fsSL https://starship.rs/install.sh) -y
   when: starship_install
 
 - name: Clone Starship Config Repo
