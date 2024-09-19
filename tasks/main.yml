@@ -7,7 +7,7 @@
 
 - name: Set FISH as default shell
   user:
-    name: "{{ fish_user }}"
+    name: "{{ fish.user }}"
     shell: /usr/bin/fish
   when: fish.default_shell
 
