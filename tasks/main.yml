@@ -16,6 +16,14 @@
     - fish_force_config
     - fish_config_repo
 
+- name: Clone FISH Config Repo
+  git:
+    repo: "{{ fish_config_repo }}"
+    dest: "{{ fish_config_path }}"
+    force: yes
+  become_user: "{{ fish_user }}"
+  when: fish_config_repo
+
 - name: Delete Starship Config if Repo is set
   file: 
     path: "{{ starship_config_path }}"
@@ -24,6 +32,14 @@
   when: 
     - starship_force_config
     - starship_config_repo
+
+- name: Clone Starship Config Repo
+  git:
+    repo: "{{ starship_config_repo }}"
+    dest: "{{ starship_config_path }}"
+    force: yes
+  become_user: "{{ fish_user }}"
+  when: starship_config_repo
 
 - name: Install Fish additional packages
   apt:
@@ -48,15 +64,6 @@
   become_user: "{{ fish_user }}"
   when: fisher_install
 
-
-- name: Clone FISH Config Repo
-  git:
-    repo: "{{ fish_config_repo }}"
-    dest: "{{ fish_config_path }}"
-    force: yes
-  become_user: "{{ fish_user }}"
-  when: fish_config_repo
-
 - name: Download Starship Installer
   ansible.builtin.get_url:
     url: https://starship.rs/install.sh
@@ -67,15 +74,6 @@
 - name: Install Starship
   command: /tmp/starship_install.sh -y
   when: starship_install
-
-
-- name: Clone Starship Config Repo
-  git:
-    repo: "{{ starship_config_repo }}"
-    dest: "{{ starship_config_path }}"
-    force: yes
-  become_user: "{{ fish_user }}"
-  when: starship_config_repo
 
 - name: Init Starship
   command: starship init fish | source
