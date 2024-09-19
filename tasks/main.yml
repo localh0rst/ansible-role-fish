@@ -28,6 +28,7 @@
   git:
     repo: "{{ fisher_config_repo }}"
     dest: "{{ fisher_config_path }}"
+    force: yes
   become_user: "{{ fish_user }}"
   when: fisher_config_repo
 
@@ -46,6 +47,7 @@
   git:
     repo: "{{ starship_config_repo }}"
     dest: "{{ starship_config_path }}"
+    force: yes
   become_user: "{{ fish_user }}"
   when: starship_config_repo
 
