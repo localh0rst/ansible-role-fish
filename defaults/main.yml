@@ -11,7 +11,9 @@ fisher_plugins:
   - dideler/fish-cd-git         # cd to git root
 fisher_config_repo: https://github.com/localh0rst/fish-config.git
 fisher_config_path: /home/{{ fish_user }}/.config/fish
+fisher_force_config: true
 
 starship_install: true
 starship_config_repo: https://github.com/localh0rst/fish-starship-config.git
 starship_config_repo_path: /home/{{ fish_user }}/.config/starship
+starship_force_config: true

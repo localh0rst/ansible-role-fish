@@ -24,6 +24,14 @@
   become_user: "{{ fish_user }}"
   when: fisher_install
 
+- name: Delete FISH Config if Repo is set
+  file: "{{ fisher_config_path }}"
+  state: absent
+  become_user: "{{ fish_user }}"
+  when: 
+    - fisher_force_config
+    - fisher_config_repo
+
 - name: Clone FISH Config Repo
   git:
     repo: "{{ fisher_config_repo }}"
@@ -42,6 +50,14 @@
 - name: Install Starship
   command: /tmp/starship_install.sh -y
   when: starship_install
+
+- name: Delete Starship Config if Repo is set
+  file: "{{ starship_config_path }}"
+  state: absent
+  become_user: "{{ fish_user }}"
+  when: 
+    - starship_force_config
+    - starship_config_repo
 
 - name: Clone Starship Config Repo
   git:
