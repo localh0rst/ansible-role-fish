@@ -1,17 +1,17 @@
 ---
-fish: 
-  user: root
-  default_shell: true
-fisher: 
-  install: true
-  plugins:
+fish_user: root
+fish_set_default: true
+
+fisher_install: true
+fisher_plugins:
   - jorgebucaran/fisher         # Plugin Manager
   - PatrickF1/fzf.fish          # Fuzzy Finder
   - jorgebucaran/fish-ssh-agent # SSH Agent
   - jethrokuan/z                # for directory tracking?
   - dideler/fish-cd-git         # cd to git root
-  config_repo: https://github.com/localh0rst/fish-config.git
-  config_path: /home/{{ fish_user }}/.config/fish
-starship: 
-  install: true
-  config_repo: https://github.com/localh0rst/fish-starship-config.git
+fisher_config_repo: https://github.com/localh0rst/fish-config.git
+fisher_config_path: /home/{{ fish_user }}/.config/fish
+
+starship_install: true
+starship_config_repo: https://github.com/localh0rst/fish-starship-config.git
+starship_config_repo_path: /home/{{ fish_user }}/.config/starship

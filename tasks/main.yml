@@ -7,37 +7,43 @@
 
 - name: Set FISH as default shell
   user:
-    name: "{{ fish.user }}"
+    name: "{{ fish_user }}"
     shell: /usr/bin/fish
-  when: fish.default_shell
+  when: fish_set_default
 
 - name: Install Fisher
   command: curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-  when: fisher.install
+  become_user: "{{ fish_user }}"
+  when: fisher_install
 
 - name: Install Fisher Plugins
   command: fish -c "fisher install {{ item }}"
-  with_items: "{{ fisher.plugins }}"
-  when: fisher.install
+  with_items: "{{ fisher_plugins }}"
+  become_user: "{{ fish_user }}"
+  when: fisher_install
 
 - name: Clone FISH Config Repo
   git:
-    repo: "{{ fisher.config_repo }}"
-    dest: "{{ fisher.config_repo_path }}"
-  when: fisher.config_repo
+    repo: "{{ fisher_config_repo }}"
+    dest: "{{ fisher_config_path }}"
+  become_user: "{{ fish_user }}"
+  when: fisher_config_repo
 
 - name: Install Starship
   command: curl -fsSL https://starship.rs/install.sh | bash -s -- -y
-  when: starship.install
+  become_user: "{{ fish_user }}"
+  when: starship_install
 
 - name: Clone Starship Config Repo
   git:
-    repo: "{{ starship.config_repo }}"
-    dest: "{{ starship.config_repo_path }}"
-  when: starship.config_repo
+    repo: "{{ starship_config_repo }}"
+    dest: "{{ starship_config_path }}"
+  become_user: "{{ fish_user }}"
+  when: starship_config_repo
 
 - name: Init Starship
   command: starship init fish | source
+  become_user: "{{ fish_user }}"
   when: 
-    - starship.install
-    - not starship.config_repo
+    - starship_install
+    - not starship_config_repo
