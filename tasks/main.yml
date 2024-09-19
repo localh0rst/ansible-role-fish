@@ -1,0 +1,43 @@
+---
+- name: Install FISH Shell
+  apt:
+    name: fish
+    state: present
+    update_cache: yes
+
+- name: Set FISH as default shell
+  user:
+    name: "{{ fish_user }}"
+    shell: /usr/bin/fish
+  when: fish.default_shell
+
+- name: Install Fisher
+  command: curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+  when: fisher.install
+
+- name: Install Fisher Plugins
+  command: fish -c "fisher install {{ item }}"
+  with_items: "{{ fisher.plugins }}"
+  when: fisher.install
+
+- name: Clone FISH Config Repo
+  git:
+    repo: "{{ fisher.config_repo }}"
+    dest: "{{ fisher.config_repo_path }}"
+  when: fisher.config_repo
+
+- name: Install Starship
+  command: curl -fsSL https://starship.rs/install.sh | bash -s -- -y
+  when: starship.install
+
+- name: Clone Starship Config Repo
+  git:
+    repo: "{{ starship.config_repo }}"
+    dest: "{{ starship.config_repo_path }}"
+  when: starship.config_repo
+
+- name: Init Starship
+  command: starship init fish | source
+  when: 
+    - starship.install
+    - not starship.config_repo
