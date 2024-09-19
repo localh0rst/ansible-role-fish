@@ -7,6 +7,12 @@
     state: present
     update_cache: yes
 
+- name: Install Fish additional packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{fish_additional_packages}}"
+
 - name: Delete FISH Config if Repo is set
   file: 
     path: "{{ fish_config_path }}"
@@ -41,22 +47,16 @@
   become_user: "{{ fish_user }}"
   when: starship_config_repo
 
-- name: Install Fish additional packages
-  apt:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{fish_additional_packages}}"
+- name: Install Fisher
+  command: fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
+  become_user: "{{ fish_user }}"
+  when: fisher_install
 
 - name: Set FISH as default shell
   user:
     name: "{{ fish_user }}"
     shell: /usr/bin/fish
   when: fish_set_default
-
-- name: Install Fisher
-  command: fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
-  become_user: "{{ fish_user }}"
-  when: fisher_install
 
 - name: Install Fisher Plugins
   command: fish -c "fisher install {{ item }}"
