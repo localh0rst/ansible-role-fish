@@ -7,6 +7,24 @@
     state: present
     update_cache: yes
 
+- name: Delete FISH Config if Repo is set
+  file: 
+    path: "{{ fish_config_path }}"
+    state: absent
+  become_user: "{{ fish_user }}"
+  when: 
+    - fish_force_config
+    - fish_config_repo
+
+- name: Delete Starship Config if Repo is set
+  file: 
+    path: "{{ starship_config_path }}"
+    state: absent
+  become_user: "{{ fish_user }}"
+  when: 
+    - starship_force_config
+    - starship_config_repo
+
 - name: Install Fish additional packages
   apt:
     name: "{{ item }}"
@@ -30,14 +48,6 @@
   become_user: "{{ fish_user }}"
   when: fisher_install
 
-- name: Delete FISH Config if Repo is set
-  file: 
-    path: "{{ fish_config_path }}"
-    state: absent
-  become_user: "{{ fish_user }}"
-  when: 
-    - fish_force_config
-    - fish_config_repo
 
 - name: Clone FISH Config Repo
   git:
@@ -58,14 +68,6 @@
   command: /tmp/starship_install.sh -y
   when: starship_install
 
-- name: Delete Starship Config if Repo is set
-  file: 
-    path: "{{ starship_config_path }}"
-    state: absent
-  become_user: "{{ fish_user }}"
-  when: 
-    - starship_force_config
-    - starship_config_repo
 
 - name: Clone Starship Config Repo
   git:
