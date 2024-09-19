@@ -25,7 +25,8 @@
   when: fisher_install
 
 - name: Delete FISH Config if Repo is set
-  file: "{{ fisher_config_path }}"
+  file: 
+    path: "{{ fisher_config_path }}"
     state: absent
   become_user: "{{ fish_user }}"
   when: 
@@ -52,7 +53,8 @@
   when: starship_install
 
 - name: Delete Starship Config if Repo is set
-  file: "{{ starship_config_path }}"
+  file: 
+    path: "{{ starship_config_path }}"
     state: absent
   become_user: "{{ fish_user }}"
   when: 
