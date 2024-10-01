@@ -6,7 +6,8 @@ fisher_install: true
 fisher_plugins:
   - jorgebucaran/fisher         # Plugin Manager
   - PatrickF1/fzf.fish          # Fuzzy Finder
-  - jorgebucaran/fish-ssh-agent # SSH Agent
+  #- jorgebucaran/fish-ssh-agent # SSH Agent
+  - jhillyerd/fish-ssh-agent
   - jethrokuan/z                # for directory tracking?
   - dideler/fish-cd-git         # cd to git root
 
